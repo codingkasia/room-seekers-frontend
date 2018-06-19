@@ -1,13 +1,13 @@
 class Apartment {
-    constructor(name, floor) {
-        this.name = name
-        this.floor = floor
-        this.bedrooms = []
-    }
+  constructor(id, name, floor) {
+    this.id = id;
+    this.name = name;
+    this.floor = floor;
+    this.bedrooms = [];
+  }
 
-    newBedroom(name, price, lease_start, term) {
-        bedroom = new Bedroom(name, price, lease_start, term)
-        this.bedrooms.push(bedroom)
-    }
-
+  newBedroom(id, name, price, lease_start, term) {
+    let bedroom = new Bedroom(id, name, price, lease_start, term);
+    this.bedrooms.push(bedroom);
+  }
 }
