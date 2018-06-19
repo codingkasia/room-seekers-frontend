@@ -4,7 +4,7 @@ const aptStore = {
   apartments: [],
   filters: {
     price: 5000,
-    startDate: 0
+    startDate: new Date()
   }
 };
 
