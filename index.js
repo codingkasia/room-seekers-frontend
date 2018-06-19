@@ -56,7 +56,11 @@ const aptBoxSelector = num => {
 };
 
 const priceSelectValue = () => {
-  return document.querySelector("select").value;
+  return document.querySelector(".price").value;
+};
+
+const monthSelectValue = () => {
+  return parseInt(document.querySelector(".moveDate").value);
 };
 
 const filterButton = () => {
@@ -68,10 +72,18 @@ const filterButton = () => {
 const filterButtonListener = () => {
   filterButton().addEventListener("click", e => {
     e.preventDefault();
-    price = priceSelectValue();
+    console.log("listener applied");
+    const price = priceSelectValue();
+    const months = monthSelectValue();
     aptStore.filters.price = price;
+    let date = new Date();
+    aptStore.filters.startDate = dateConverter(date, months);
     displayApartments(1);
   });
+};
+
+const dateConverter = (date, months) => {
+  return date.setMonth(date.getMonth() + months);
 };
 
 // App
@@ -84,7 +96,7 @@ const displayApartments = num => {
       <li>${bedroom.name}</li>
       <li>${bedroom.price}</li>
       </ul>`;
-      bedroomFilter(bedroom.price)
+      bedroomFilter(bedroom)
         ? (aptBoxSelector(counter).style.background = "green")
         : (aptBoxSelector(counter).style.background = "white");
       // if (bedroom.price < 2000) {
@@ -95,16 +107,13 @@ const displayApartments = num => {
   });
 };
 
-const bedroomFilter = price => {
-  return price < aptStore.filters.price;
+const bedroomFilter = bedroom => {
+  date = new Date(bedroom.lease_start);
+  return (
+    bedroom.price < aptStore.filters.price &&
+    dateConverter(date, bedroom.term) < aptStore.filters.startDate
+  );
 };
-
-// const filterByPrice = price => {
-//   const fitBedrooms = aptStore.apartments.apt1.bedrooms.filter(
-//     bedroom => bedroom.price < 2000
-//   );
-//   console.log(fitBedrooms);
-// };
 
 // Initialize
 
