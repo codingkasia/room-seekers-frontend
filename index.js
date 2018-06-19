@@ -3,9 +3,10 @@
 const aptStore = {
   apartments: [],
   filters: {
-    price: 5000,
+    price: 3000,
     startDate: new Date()
-  }
+  },
+  currentApt: 1
 };
 
 const apartmentsURL = "http://localhost:3000/api/v1/apartments";
@@ -51,8 +52,8 @@ const aptContainer = () => {
   return document.querySelector(".grid-container");
 };
 
-const aptBoxSelector = num => {
-  return document.querySelector(`.apt-${num}`);
+const brBoxSelector = num => {
+  return document.querySelector(`.br${num}`);
 };
 
 const priceSelectValue = () => {
@@ -67,6 +68,10 @@ const filterButton = () => {
   return document.querySelector("input");
 };
 
+const aptDivSelector = () => {
+  return document.querySelector(".apartment-buttons");
+};
+
 // Listeners
 
 const filterButtonListener = () => {
@@ -78,7 +83,7 @@ const filterButtonListener = () => {
     aptStore.filters.price = price;
     let date = new Date();
     aptStore.filters.startDate = dateConverter(date, months);
-    displayApartments(1);
+    displayBedrooms(aptStore.currentApt);
   });
 };
 
@@ -86,22 +91,27 @@ const dateConverter = (date, months) => {
   return date.setMonth(date.getMonth() + months);
 };
 
+const aptSelectListener = () => {
+  aptDivSelector().addEventListener("click", e => {
+    const apartment = parseInt(e.target.innerText);
+    displayBedrooms(apartment);
+    aptStore.currentApt = apartment;
+  });
+};
+
 // App
 
-const displayApartments = num => {
+const displayBedrooms = num => {
   let counter = 1;
   fetchApartments().then(res => {
     aptStore.apartments[`apt${num}`].bedrooms.forEach(bedroom => {
-      aptBoxSelector(counter).innerHTML = `<ul>
+      brBoxSelector(counter).innerHTML = `<ul>
       <li>${bedroom.name}</li>
       <li>${bedroom.price}</li>
       </ul>`;
       bedroomFilter(bedroom)
-        ? (aptBoxSelector(counter).style.background = "green")
-        : (aptBoxSelector(counter).style.background = "white");
-      // if (bedroom.price < 2000) {
-      //   aptBoxSelector(counter).style.background = "green";
-      // }
+        ? (brBoxSelector(counter).style.background = "green")
+        : (brBoxSelector(counter).style.background = "white");
       counter++;
     });
   });
@@ -119,6 +129,7 @@ const bedroomFilter = bedroom => {
 
 document.addEventListener("DOMContentLoaded", () => {
   const apartmentsURL = "http://localhost:3000/api/v1/apartments";
-  displayApartments(1);
+  displayBedrooms(aptStore.currentApt);
   filterButtonListener();
+  aptSelectListener();
 });
