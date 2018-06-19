@@ -1,6 +1,12 @@
 // Fetch & Build Apartment Data
 
-const aptStore = [];
+const aptStore = {
+  apartments: [],
+  filters: {
+    price: 5000,
+    startDate: 0
+  }
+};
 
 const apartmentsURL = "http://localhost:3000/api/v1/apartments";
 
@@ -16,7 +22,7 @@ const fetchApartments = () => {
 
 const buildApartments = res => {
   res.data.forEach(apt => {
-    aptStore[`apt${apt.id}`] = new Apartment(
+    aptStore.apartments[`apt${apt.id}`] = new Apartment(
       apt.id,
       apt.attributes.name,
       apt.attributes.floor
@@ -27,7 +33,7 @@ const buildApartments = res => {
 
 const buildBedrooms = res => {
   res.included.forEach(br => {
-    aptStore[`apt${br.attributes["apartment-id"]}`].newBedroom(
+    aptStore.apartments[`apt${br.attributes["apartment-id"]}`].newBedroom(
       // id, name, price, lease_start, term
       br.id,
       br.attributes.name,
@@ -49,33 +55,52 @@ const aptBoxSelector = num => {
   return document.querySelector(`.apt-${num}`);
 };
 
+const priceSelectValue = () => {
+  return document.querySelector("select").value;
+};
+
+const filterButton = () => {
+  return document.querySelector("input");
+};
+
+// Listeners
+
+const filterButtonListener = () => {
+  filterButton().addEventListener("click", e => {
+    e.preventDefault();
+    price = priceSelectValue();
+    aptStore.filters.price = price;
+    displayApartments(1);
+  });
+};
+
 // App
 
 const displayApartments = num => {
   let counter = 1;
-  aptStore[`apt${num}`].bedrooms.forEach(bedroom => {
-    aptBoxSelector(counter).innerHTML = `<ul>
-    <li>${bedroom.name}</li>
-    <li>${bedroom.price}</li>
-    </ul>`;
-    bedroomFilter(bedroom.price)
-      ? (aptBoxSelector(counter).style.background = "green")
-      : (aptBoxSelector(counter).style.background = "white");
-    // if (bedroom.price < 2000) {
-    //   aptBoxSelector(counter).style.background = "green";
-    // }
-    counter++;
+  fetchApartments().then(res => {
+    aptStore.apartments[`apt${num}`].bedrooms.forEach(bedroom => {
+      aptBoxSelector(counter).innerHTML = `<ul>
+      <li>${bedroom.name}</li>
+      <li>${bedroom.price}</li>
+      </ul>`;
+      bedroomFilter(bedroom.price)
+        ? (aptBoxSelector(counter).style.background = "green")
+        : (aptBoxSelector(counter).style.background = "white");
+      // if (bedroom.price < 2000) {
+      //   aptBoxSelector(counter).style.background = "green";
+      // }
+      counter++;
+    });
   });
 };
 
-let priceStore = 5000;
-
 const bedroomFilter = price => {
-  return price < priceStore;
+  return price < aptStore.filters.price;
 };
 
 // const filterByPrice = price => {
-//   const fitBedrooms = aptStore.apt1.bedrooms.filter(
+//   const fitBedrooms = aptStore.apartments.apt1.bedrooms.filter(
 //     bedroom => bedroom.price < 2000
 //   );
 //   console.log(fitBedrooms);
@@ -85,7 +110,6 @@ const bedroomFilter = price => {
 
 document.addEventListener("DOMContentLoaded", () => {
   const apartmentsURL = "http://localhost:3000/api/v1/apartments";
-  fetchApartments().then(res => {
-    displayApartments(1);
-  });
+  displayApartments(1);
+  filterButtonListener();
 });
