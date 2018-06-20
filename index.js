@@ -56,6 +56,10 @@ const brBoxSelector = num => {
   return document.querySelector(`.br${num}`);
 };
 
+const aptBoxSelector = num => {
+  return document.querySelector(`.apt${num}`);
+};
+
 const priceSelectValue = () => {
   return document.querySelector(".price").value;
 };
@@ -81,7 +85,6 @@ const svgSelector = () => {
 const filterButtonListener = () => {
   filterButton().addEventListener("click", e => {
     e.preventDefault();
-    console.log("listener applied");
     const price = priceSelectValue();
     const months = monthSelectValue();
     aptStore.filters.price = price;
@@ -100,7 +103,6 @@ const aptSelectListener = () => {
     const apartment = parseInt(e.target.innerText);
     displayBedrooms(apartment);
     aptStore.currentApt = apartment;
-    console.log("Loaded apartment:", apartment)
   });
 };
 
@@ -108,18 +110,21 @@ const aptSelectListener = () => {
 
 const displayBedrooms = num => {
   let counter = 1;
-  fetchApartments().then(res => {
-    aptStore.apartments[`apt${num}`].bedrooms.forEach(bedroom => {
-      brBoxSelector(counter).innerHTML = `<ul>
+  fetchApartments()
+    .then(res => {
+      aptStore.apartments[`apt${num}`].bedrooms.forEach(bedroom => {
+        brBoxSelector(counter).innerHTML = `<ul>
       <li>${bedroom.name}</li>
       <li>${bedroom.price}</li>
       </ul>`;
-      bedroomFilter(bedroom)
-        ? (brBoxSelector(counter).style.fill = "green")
-        : (brBoxSelector(counter).style.fill = "white");
-      counter++;
-    });
-  });
+        bedroomFilter(bedroom)
+          ? (brBoxSelector(counter).style.fill = "green")
+          : (brBoxSelector(counter).style.fill = "white");
+        counter++;
+        return res;
+      });
+    })
+    .then(makeGreenApartments);
 };
 
 const bedroomFilter = bedroom => {
@@ -129,6 +134,36 @@ const bedroomFilter = bedroom => {
     dateConverter(date, bedroom.term) < aptStore.filters.startDate
   );
 };
+
+const apartmentFilter = apartment => {
+  let filtered = false;
+  apartment.bedrooms.forEach(bedroom => {
+    if (bedroomFilter(bedroom)) {
+      filtered = true;
+    }
+  });
+  return filtered;
+};
+
+const makeGreenApartments = () => {
+  for (let i = 1; i < 5; i++) {
+    if (apartmentFilter(aptStore.apartments[`apt${i}`])) {
+      aptBoxSelector(i).style.backgroundColor = "green";
+    } else {
+      aptBoxSelector(i).style.backgroundColor = "white";
+    }
+  }
+};
+//   // aptStore.apartments.forEach(apartment => {
+//   //   console.log(apartment);
+//   //   if (apartmentFilter(apartment)) {
+//   //     aptBoxSelector(counter).style.backgroundColor = "green";
+//   //   } else {
+//   //     aptBoxSelector(counter).style.backgroundColor = "white";
+//   //   }
+//   //   counter++;
+//   // });
+// };
 
 // Initialize
 
