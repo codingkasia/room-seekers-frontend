@@ -2,14 +2,23 @@
 
 const aptStore = {
   apartments: [],
+  bedrooms: [],
   filters: {
     price: 3000,
     startDate: new Date()
   },
-  currentApt: 1
+  currentApt: 1,
+  roomTypes: {
+    a: "https://i.imgur.com/BNk5Tva.png",
+    b: "https://i.imgur.com/BNk5Tva.png",
+    c: "https://i.imgur.com/BNk5Tva.png",
+    d: "https://i.imgur.com/BNk5Tva.png",
+    e: "https://i.imgur.com/BNk5Tva.png"
+  }
 };
 
 const apartmentsURL = "http://localhost:3000/api/v1/apartments";
+
 
 const getApartmentsData = () => {
   return fetch(apartmentsURL).then(res => res.json());
@@ -35,12 +44,13 @@ const buildApartments = res => {
 const buildBedrooms = res => {
   res.included.forEach(br => {
     aptStore.apartments[`apt${br.attributes["apartment-id"]}`].newBedroom(
-      // id, name, price, lease_start, term
+      // id, name, price, lease_start, term, roomType
       br.id,
       br.attributes.name,
       br.attributes.price,
       br.attributes["lease-start"],
-      br.attributes.term
+      br.attributes.term,
+      br.attributes["room-type"]
     );
   });
   return res;
@@ -80,6 +90,10 @@ const svgSelector = () => {
   return document.querySelector(".svg-play");
 };
 
+const brDetailView = () => {
+  return document.querySelector(".br-show");
+}
+
 // Listeners
 
 const filterButtonListener = () => {
@@ -113,10 +127,7 @@ const displayBedrooms = num => {
   fetchApartments()
     .then(res => {
       aptStore.apartments[`apt${num}`].bedrooms.forEach(bedroom => {
-        brBoxSelector(counter).innerHTML = `<ul>
-      <li>${bedroom.name}</li>
-      <li>${bedroom.price}</li>
-      </ul>`;
+        brBoxSelector(counter).setAttribute('data-id', bedroom.id)
         bedroomFilter(bedroom)
           ? (brBoxSelector(counter).style.fill = "green")
           : (brBoxSelector(counter).style.fill = "white");
@@ -165,11 +176,36 @@ const makeGreenApartments = () => {
 //   // });
 // };
 
+// show a detail view
+
+function brDetailViewListener() {
+  for (let i = 1; i < 6; i++) {
+    brBoxSelector(i).addEventListener('click', event => {
+    displayDetailBrView(brBoxSelector(i).dataset.id)
+      console.log(brBoxSelector(i).dataset.id, "listened")
+        });
+    }
+}
+
+function getBrImgUrl(bedroomId) {
+  let bedroomArr = aptStore.bedrooms.filter(bedroom => bedroom.id == bedroomId)
+  let roomType = bedroomArr[0].roomType
+  return aptStore.roomTypes[`${roomType}`]
+}
+
+function displayDetailBrView(bedroomId) {
+  const imgUrl = getBrImgUrl(bedroomId)
+   brDetailView().innerHTML = `<img src="${imgUrl}"/>`;
+}
+
+
 // Initialize
 
+
+
 document.addEventListener("DOMContentLoaded", () => {
-  const apartmentsURL = "http://localhost:3000/api/v1/apartments";
   displayBedrooms(aptStore.currentApt);
   filterButtonListener();
   aptSelectListener();
+  brDetailViewListener();
 });

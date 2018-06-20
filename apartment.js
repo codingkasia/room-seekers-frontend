@@ -6,8 +6,8 @@ class Apartment {
     this.bedrooms = [];
   }
 
-  newBedroom(id, name, price, lease_start, term) {
-    let bedroom = new Bedroom(id, name, price, lease_start, term);
+  newBedroom(id, name, price, lease_start, term, roomType) {
+    let bedroom = new Bedroom(id, name, price, lease_start, term, roomType);
     this.bedrooms.push(bedroom);
   }
 }
