@@ -100,6 +100,7 @@ const aptSelectListener = () => {
     const apartment = parseInt(e.target.innerText);
     displayBedrooms(apartment);
     aptStore.currentApt = apartment;
+    console.log("Loaded apartment:", apartment)
   });
 };
 

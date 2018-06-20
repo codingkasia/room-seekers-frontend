@@ -8,7 +8,7 @@
   display: grid;
   grid-template-columns: 40px 40px 40px 40px 40px;
   background-color: #ffffff;
-  padding-left: 50px;
+  padding-left: 20px;
   padding-top: 25px;
 }
 
@@ -38,12 +38,38 @@
   background-color: green;
 }
 
-.svg-play {
-  height: 800px;
-  width: 600px;
-  padding-left: 50px;
+.filters {
+  padding-left: 20px;
 }
 
-.filters {
-  padding-left: 50px;
+.svg-box {
+  max-height: 650px;
+}
+
+.apt-show-container {
+  width: 100%;
+  /* border: 1px solid black; */
+  overflow: hidden;
+  height: 100%;
+}
+
+.svg-play {
+  width: 45%;
+  max-height: 650px;
+  border-style: dashed;
+  border-width: 2px;
+  float: left;
+}
+
+.br-show-container {
+  width: 45%;
+  max-height: 650px;
+  border-style: dashed;
+  border-width: 2px;
+  overflow: hidden;
+  color: cyan;
+}
+
+.br-show {
+  height: 100%;
 }
