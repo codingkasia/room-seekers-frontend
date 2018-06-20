@@ -43,7 +43,7 @@
 }
 
 .svg-box {
-  max-height: 550px;
+  max-height: 450px;
 }
 
 .apt-show-container {
@@ -56,16 +56,14 @@
 .svg-play {
   width: 45%;
   max-height: 550px;
-  border-style: dashed;
-  border-width: 2px;
   float: left;
 }
 
 .br-show-container {
   width: 45%;
   max-height: 550px;
-  border-style: dashed;
-  border-width: 2px;
+  /* border-style: dashed; */
+  /* border-width: 2px; */
   overflow: hidden;
   color: cyan;
 }
