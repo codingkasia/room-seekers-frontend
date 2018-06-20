@@ -91,7 +91,7 @@ const svgSelector = () => {
 };
 
 const brDetailView = () => {
-  return document.querySelector(".br-show");
+  return document.querySelector(".svg-box.show");
 }
 
 // Listeners
@@ -190,12 +190,12 @@ function brDetailViewListener() {
 function getBrImgUrl(bedroomId) {
   let bedroomArr = aptStore.bedrooms.filter(bedroom => bedroom.id == bedroomId)
   let roomType = bedroomArr[0].roomType
-  return aptStore.roomTypes[`${roomType}`]
+  return svgStore[`${roomType}`]
 }
 
 function displayDetailBrView(bedroomId) {
   const imgUrl = getBrImgUrl(bedroomId)
-   brDetailView().innerHTML = `<img src="${imgUrl}"/>`;
+   brDetailView().innerHTML = `${imgUrl}`;
 }
 
 
