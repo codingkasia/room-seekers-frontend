@@ -72,6 +72,10 @@ const aptDivSelector = () => {
   return document.querySelector(".apartment-buttons");
 };
 
+const svgSelector = () => {
+  return document.querySelector(".svg-play");
+};
+
 // Listeners
 
 const filterButtonListener = () => {
@@ -110,8 +114,8 @@ const displayBedrooms = num => {
       <li>${bedroom.price}</li>
       </ul>`;
       bedroomFilter(bedroom)
-        ? (brBoxSelector(counter).style.background = "green")
-        : (brBoxSelector(counter).style.background = "white");
+        ? (brBoxSelector(counter).style.fill = "green")
+        : (brBoxSelector(counter).style.fill = "white");
       counter++;
     });
   });
