@@ -1,4 +1,53 @@
-.grid-container-br {
+.filters {
+  padding-left: 20px;
+  padding-top: 15px;
+  padding-bottom: 0px;
+}
+
+.svg-box {
+  max-height: 450px;
+  align-content: left;
+  padding-left: 20px;
+}
+
+.apt-show-container {
+  width: 100%;
+  /* border: 1px solid black; */
+  overflow: hidden;
+  height: 100%;
+  padding-top: 0px;
+}
+
+.svg-play {
+  width: 45%;
+  max-height: 590px;
+  float: left;
+  padding-top: 0px;
+}
+
+.br-show-container {
+  width: 45%;
+  max-height: 500px;
+  /* border-style: dashed; */
+  /* border-width: 2px; */
+  margin-top: 20px;
+  overflow: hidden;
+  /* color: cyan; */
+  padding-top: 0px;
+}
+
+.apartment-buttons {
+  padding-left: 20px;
+  padding-top: 15px;
+  padding-bottom: 5px;
+  font-size: 20px;
+}
+
+.brBox {
+  cursor: pointer;
+}
+
+/* .grid-container-br {
   display: grid;
   grid-template-columns: auto auto auto auto auto;
   background-color: #ffffff;
@@ -28,68 +77,4 @@
   text-align: center;
   width: 30px;
   height: 30px;
-}
-
-.leased {
-  background-color: rgba(255, 255, 255, 0.8);
-}
-
-.vacant {
-  background-color: green;
-}
-
-.filters {
-  padding-left: 20px;
-  padding-top: 15px;
-  padding-bottom: 0px;
-}
-
-.svg-box {
-  max-height: 450px;
-  align-content: left;
-  padding-left: 20px;
-  
-}
-
-.apt-show-container {
-  width: 100%;
-  /* border: 1px solid black; */
-  overflow: hidden;
-  height: 100%;
-  padding-top: 0px;
-
-}
-
-.svg-play {
-  width: 45%;
-  max-height: 590px;
-  float: left;
-  padding-top: 0px;
-}
-
-.br-show-container {
-  width: 45%;
-  max-height: 500px;
-  /* border-style: dashed; */
-  /* border-width: 2px; */
-  margin: -25px;
-  overflow: hidden;
-  /* color: cyan; */
-  padding-top: 0px;
-}
-
-.br-show {
-  height: 100%;
-  padding-top: 0px;
-}
-
-.apartment-buttons {
-  padding-left: 20px;
-  padding-top: 15px;
-  padding-bottom: 5px;
-  font-size: 20px;
-}
-
-.brBox {
-  cursor: pointer;
-}
+} */

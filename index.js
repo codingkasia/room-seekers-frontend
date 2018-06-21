@@ -93,7 +93,7 @@ const svgSelector = () => {
 };
 
 const brDetailView = () => {
-  return document.querySelector(".svg-box.show");
+  return document.querySelector(".br-show-container");
 };
 
 // Listeners
