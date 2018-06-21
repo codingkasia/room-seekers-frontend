@@ -234,7 +234,7 @@ function displayDetailBrView(bedroomId) {
   const imgUrl = getBrImgUrl(bedroomId);
   const brName = getBrName(bedroomId);
   brDetailView().innerHTML = `
-  <svg viewBox="0 0 200 300">
+  <svg viewBox="0 0 300 600">
   ${imgUrl}
   <text x="5" y="290" font-family="Verdana" font-size="25" fill="black">${brName}</text>
   </svg>`;
