@@ -62,7 +62,12 @@ const aptContainer = () => {
 };
 
 const brBoxSelector = num => {
-  return document.querySelector(`.br${num}`);
+  return document.querySelector(`rect.br${num}`);
+};
+
+const brTextSelector = num => {
+  console.log("am i here")
+  return document.querySelector(`text.br${num}`);
 };
 
 const aptBoxSelector = num => {
@@ -127,15 +132,35 @@ const displayBedrooms = num => {
     .then(res => {
       aptStore.apartments[`apt${num}`].bedrooms.forEach(bedroom => {
         brBoxSelector(counter).setAttribute('data-id', bedroom.id)
+        const textY = brTextSelector(counter).getAttribute("y")
+        const textX = brTextSelector(counter).getAttribute("x");
+
+        brTextSelector(counter).innerHTML = `
+          <tspan x="${textX}" y="${textY}"> ${bedroom.name} </tspan>
+          <tspan x="${textX}" y="${parseInt(textY) + 75}"> ${bedroom.price} </tspan>
+          <tspan x="${textX}" y="${parseInt(textY) + 150}"> ${getLeaseEndDate(bedroom)} </tspan> `;
         bedroomFilter(bedroom)
           ? (brBoxSelector(counter).style.fill = "green")
           : (brBoxSelector(counter).style.fill = "white");
+        
         counter++;
         return res;
       });
     })
     .then(makeGreenApartments);
 };
+
+const getLeaseEndDate = (bedroom) => {
+  let date = new Date(bedroom.lease_start);
+
+  date = date.setMonth(date.getMonth() + bedroom.term);
+  // let day = date.getDay();
+  // let month = date.getMonth();
+  // let year = date.getFullYear()
+  // return `${year}-${month}-${day}`
+  var d = new Date(date)
+  return d.toLocaleDateString();
+}
 
 const bedroomFilter = bedroom => {
   date = new Date(bedroom.lease_start);
