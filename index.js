@@ -34,7 +34,6 @@ const buildApartments = res => {
   res.data.forEach(apt => {
     aptStore.apartments[`apt${apt.id}`] = new Apartment(
       apt.id,
-      apt.attributes.name,
       apt.attributes.floor
     );
   });

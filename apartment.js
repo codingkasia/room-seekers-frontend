@@ -1,7 +1,6 @@
 class Apartment {
-  constructor(id, name, floor) {
+  constructor(id, floor) {
     this.id = id;
-    this.name = name;
     this.floor = floor;
     this.bedrooms = [];
   }
