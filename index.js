@@ -134,6 +134,7 @@ const displayBedrooms = num => {
         brBoxSelector(counter).setAttribute('data-id', bedroom.id)
         const textY = brTextSelector(counter).getAttribute("y")
         const textX = brTextSelector(counter).getAttribute("x");
+        const fontSize = brTextSelector(counter).getAttribute("font-size");
 
         brTextSelector(counter).innerHTML = `
           <tspan x="${textX}" y="${textY}"> ${bedroom.name} </tspan>
