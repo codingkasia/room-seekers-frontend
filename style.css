@@ -40,10 +40,14 @@
 
 .filters {
   padding-left: 20px;
+  padding-top: 15px;
+  padding-bottom: 0px;
 }
 
 .svg-box {
   max-height: 450px;
+  align-content: left;
+  padding-left: 20px;
 }
 
 .apt-show-container {
@@ -51,12 +55,14 @@
   /* border: 1px solid black; */
   overflow: hidden;
   height: 100%;
+  padding-top: 0px;
 }
 
 .svg-play {
   width: 45%;
   max-height: 550px;
   float: left;
+  padding-top: 0px;
 }
 
 .br-show-container {
@@ -65,9 +71,22 @@
   /* border-style: dashed; */
   /* border-width: 2px; */
   overflow: hidden;
-  color: cyan;
+  /* color: cyan; */
+  padding-top: 0px;
 }
 
 .br-show {
   height: 100%;
+  padding-top: 0px;
+}
+
+.apartment-buttons {
+  padding-left: 20px;
+  padding-top: 15px;
+  padding-bottom: 5px;
+  font-size: 20px;
+}
+
+.brBox {
+  cursor: pointer;
 }

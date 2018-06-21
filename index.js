@@ -19,7 +19,6 @@ const aptStore = {
 
 const apartmentsURL = "http://localhost:3000/api/v1/apartments";
 
-
 const getApartmentsData = () => {
   return fetch(apartmentsURL).then(res => res.json());
 };
@@ -66,7 +65,6 @@ const brBoxSelector = num => {
 };
 
 const brTextSelector = num => {
-  console.log("am i here")
   return document.querySelector(`text.br${num}`);
 };
 
@@ -96,7 +94,7 @@ const svgSelector = () => {
 
 const brDetailView = () => {
   return document.querySelector(".svg-box.show");
-}
+};
 
 // Listeners
 
@@ -131,19 +129,23 @@ const displayBedrooms = num => {
   fetchApartments()
     .then(res => {
       aptStore.apartments[`apt${num}`].bedrooms.forEach(bedroom => {
-        brBoxSelector(counter).setAttribute('data-id', bedroom.id)
-        const textY = brTextSelector(counter).getAttribute("y")
+        brBoxSelector(counter).setAttribute("data-id", bedroom.id);
+        const textY = brTextSelector(counter).getAttribute("y");
         const textX = brTextSelector(counter).getAttribute("x");
         const fontSize = brTextSelector(counter).getAttribute("font-size");
 
         brTextSelector(counter).innerHTML = `
           <tspan x="${textX}" y="${textY}"> ${bedroom.name} </tspan>
-          <tspan x="${textX}" y="${parseInt(textY) + 75}"> ${bedroom.price} </tspan>
-          <tspan x="${textX}" y="${parseInt(textY) + 150}"> ${getLeaseEndDate(bedroom)} </tspan> `;
+          <tspan x="${textX}" y="${parseInt(textY) + 75}"> $${
+          bedroom.price
+        }/mo. </tspan>
+          <tspan x="${textX}" y="${parseInt(textY) + 150}"> ${getLeaseEndDate(
+          bedroom
+        )} </tspan> `;
         bedroomFilter(bedroom)
-          ? (brBoxSelector(counter).style.fill = "green")
+          ? (brBoxSelector(counter).style.fill = "18BC9B")
           : (brBoxSelector(counter).style.fill = "white");
-        
+
         counter++;
         return res;
       });
@@ -151,7 +153,7 @@ const displayBedrooms = num => {
     .then(makeGreenApartments);
 };
 
-const getLeaseEndDate = (bedroom) => {
+const getLeaseEndDate = bedroom => {
   let date = new Date(bedroom.lease_start);
 
   date = date.setMonth(date.getMonth() + bedroom.term);
@@ -159,9 +161,9 @@ const getLeaseEndDate = (bedroom) => {
   // let month = date.getMonth();
   // let year = date.getFullYear()
   // return `${year}-${month}-${day}`
-  var d = new Date(date)
+  var d = new Date(date);
   return d.toLocaleDateString();
-}
+};
 
 const bedroomFilter = bedroom => {
   date = new Date(bedroom.lease_start);
@@ -184,9 +186,12 @@ const apartmentFilter = apartment => {
 const makeGreenApartments = () => {
   for (let i = 1; i < 5; i++) {
     if (apartmentFilter(aptStore.apartments[`apt${i}`])) {
-      aptBoxSelector(i).style.backgroundColor = "green";
+      aptBoxSelector(i).setAttribute("class", `btn btn-success apt${i}`);
     } else {
-      aptBoxSelector(i).style.backgroundColor = "white";
+      aptBoxSelector(i).setAttribute(
+        "class",
+        `btn btn-secondary disabled apt${i}`
+      );
     }
   }
 };
@@ -205,28 +210,37 @@ const makeGreenApartments = () => {
 
 function brDetailViewListener() {
   for (let i = 1; i < 6; i++) {
-    brBoxSelector(i).addEventListener('click', event => {
-    displayDetailBrView(brBoxSelector(i).dataset.id)
-      console.log(brBoxSelector(i).dataset.id, "listened")
-        });
-    }
+    brBoxSelector(i).addEventListener("click", event => {
+      displayDetailBrView(brBoxSelector(i).dataset.id);
+    });
+    brTextSelector(i).addEventListener("click", event => {
+      displayDetailBrView(brBoxSelector(i).dataset.id);
+    });
+  }
 }
 
 function getBrImgUrl(bedroomId) {
-  let bedroomArr = aptStore.bedrooms.filter(bedroom => bedroom.id == bedroomId)
-  let roomType = bedroomArr[0].roomType
-  return svgStore[`${roomType}`]
+  let bedroomArr = aptStore.bedrooms.filter(bedroom => bedroom.id == bedroomId);
+  let roomType = bedroomArr[0].roomType;
+  return svgStore[`${roomType}`];
+}
+
+function getBrName(bedroomId) {
+  let bedroomArr = aptStore.bedrooms.filter(bedroom => bedroom.id == bedroomId);
+  return bedroomArr[0].name;
 }
 
 function displayDetailBrView(bedroomId) {
-  const imgUrl = getBrImgUrl(bedroomId)
-   brDetailView().innerHTML = `${imgUrl}`;
+  const imgUrl = getBrImgUrl(bedroomId);
+  const brName = getBrName(bedroomId);
+  brDetailView().innerHTML = `
+  <svg viewBox="0 0 200 300">
+  ${imgUrl}
+  <text x="5" y="290" font-family="Verdana" font-size="25" fill="black">${brName}</text>
+  </svg>`;
 }
 
-
 // Initialize
-
-
 
 document.addEventListener("DOMContentLoaded", () => {
   displayBedrooms(aptStore.currentApt);

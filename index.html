@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Room Seek</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.1/flatly/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" media="screen" href="./style.css" />
     <script src="./svg.js"></script>
     <script src="./bedroom.js"></script>
@@ -14,22 +17,37 @@
 </head>
 
 <body>
-    <div class="apartment-buttons grid-container-apt">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">RoomSeek</a>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+        </div>
+    </nav>
+
+    <div class="apartment-buttons">
+        Select Apartment
+        <br />
+        <button type="button" class="btn btn-secondary apt1">1</button>
+        <button type="button" class="btn btn-secondary apt2">2</button>
+        <button type="button" class="btn btn-secondary apt3">3</button>
+        <button type="button" class="btn btn-secondary apt4">4</button>
+    </div>
+    <!-- <div class="apartment-buttons grid-container-apt">
         <div class="grid-apt apt1 leased">1</div>
         <div class="grid-apt apt2 leased">2</div>
         <div class="grid-apt apt3 leased">3</div>
         <div class="grid-apt apt4 leased">4</div>
-    </div>
-    <br>
-    <br>
+    </div> -->
     <div class="filters">
         <select class="price">
-            <option value="1500">Less than 1500</option>
-            <option value="2000">Less than 2000</option>
-            <option value="2500">Less than 2500</option>
-            <option value="3000" selected="selected">Less than 3000</option>
+            <option selected="selected" disabled="disabled">Maximum Rent</option>
+            <option value="1750">$1750</option>
+            <option value="2000">$2000</option>
+            <option value="2500">$2500</option>
+            <option value="3000">$3000</option>
         </select>
         <select class="moveDate">
+            <option selected="selected" disabled="disabled">Desired Move Date</option>
             <option value="1">Within 1 month</option>
             <option value="3">Within 3 months</option>
             <option value="6">Within 6 months</option>
@@ -45,29 +63,26 @@
         <div class="grid-br br4 leased"></div>
         <div class="grid-br br5 leased"></div>
     </div> -->
+    Click Bedroom to View Floorplan
     <div class="apt-show-container">
-        
         <div class="svg-play">
             <svg class="svg-box" viewBox="0 0 600 800">
                 <!-- width="600" height="800" version="1.1" -->
                 <!-- north apartments -->
-            
-                <rect class="br1" x="0" y="0" width="175" height="250" stroke="black" fill="transparent" stroke-width="3" />
+                <rect class="br1 brBox" x="0" y="0" width="175" height="250" stroke="black" fill="transparent" stroke-width="3" />
+                <text class="br1 brBox" x="25" y="50" font-family="Verdana" font-size="25" fill="black"></text>
+                <rect class="br2 brBox" x="175" y="0" width="175" height="250" stroke="black" fill="transparent" stroke-width="3" />
+                <text class="br2 brBox" x="200" y="50" font-family="Verdana" font-size="25" fill="black"></text>
 
-                <text class="br1" x="25" y="50" font-family="Verdana" font-size="25" fill="black"></text>
-         
-                <rect class="br2" x="175" y="0" width="175" height="250" stroke="black" fill="transparent" stroke-width="3" />
-                <text class="br2" x="200" y="50" font-family="Verdana" font-size="25" fill="black"></text>
-
-                <rect class="br3" x="350" y="0" width="175" height="250" stroke="black" fill="transparent" stroke-width="3" />
-                <text class="br3" x="375" y="50" font-family="Verdana" font-size="25" fill="black"></text>
+                <rect class="br3 brBox" x="350" y="0" width="175" height="250" stroke="black" fill="transparent" stroke-width="3" />
+                <text class="br3 brBox" x="375" y="50" font-family="Verdana" font-size="25" fill="black"></text>
 
                 <!-- south apartments -->
-                <rect class="br4" x="0" y="575" width="225" height="225" stroke="black" fill="transparent" stroke-width="3" />
-                <text class="br4" x="25" y="625" font-family="Verdana" font-size="25" fill="black"></text>
+                <rect class="br4 brBox" x="0" y="575" width="225" height="225" stroke="black" fill="transparent" stroke-width="3" />
+                <text class="br4 brBox" x="25" y="625" font-family="Verdana" font-size="25" fill="black"></text>
 
-                <rect class="br5" x="225" y="575" width="225" height="225" stroke="black" fill="transparent" stroke-width="3" />
-                <text class="br5" x="250" y="625" font-family="Verdana" font-size="25" fill="black"></text>
+                <rect class="br5 brBox" x="225" y="575" width="225" height="225" stroke="black" fill="transparent" stroke-width="3" />
+                <text class="br5 brBox" x="250" y="625" font-family="Verdana" font-size="25" fill="black"></text>
 
                 <!-- living/kitchen -->
                 <rect x="0" y="250" width="400" height="325" stroke="black" fill="transparent" stroke-width="2" />
@@ -79,13 +94,13 @@
                 <rect x="225" y="325" width="140" height="170" stroke="black" fill="transparent" stroke-width="2" />
             </svg>
         </div>
-        
-        <div class="br-show-container">
-                <div class="svg-box show svg-play">
 
-                </div>
+        <div class="br-show-container">
+            <div class="svg-box show svg-play">
+
+            </div>
         </div>
-        
+
     </div>
 
 
