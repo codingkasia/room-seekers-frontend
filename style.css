@@ -4,14 +4,8 @@
   padding-bottom: 0px;
 }
 
-.svg-box {
-  max-height: 450px;
-  align-content: left;
-  padding-left: 20px;
-}
-
 .apt-show-container {
-  width: 100%;
+  width: 30%;
   /* border: 1px solid black; */
   overflow: hidden;
   height: 100%;
@@ -20,9 +14,15 @@
 
 .svg-play {
   width: 45%;
-  max-height: 590px;
+  max-height: 450px;
   float: left;
   padding-top: 0px;
+}
+
+.svg-box {
+  max-height: 450px;
+  align-content: left;
+  padding-left: 20px;
 }
 
 .br-show-container {
