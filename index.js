@@ -1,4 +1,4 @@
-// Fetch & Build Apartment Data
+//store 
 
 const aptStore = {
   apartments: [],
@@ -9,6 +9,8 @@ const aptStore = {
   },
   currentApt: 1
 };
+
+// Fetch & Build Apartment Data
 
 const apartmentsURL = "http://localhost:3000/api/v1/apartments";
 
@@ -98,12 +100,12 @@ const brDetailView = () => {
 
 // Listeners
 
-const filterButtonListener = () => {
-  filterButton().addEventListener("click", e => {
-    e.preventDefault();
-    filterApartments();
-  });
-};
+// const filterButtonListener = () => {
+//   filterButton().addEventListener("click", e => {
+//     e.preventDefault();
+//     filterApartments();
+//   });
+// };
 
 const priceSelectListener = () => {
   priceFilter().addEventListener("change", () => {
@@ -117,10 +119,6 @@ const moveDateSelectListener = () => {
     console.log("move date listener");
     filterApartments();
   });
-};
-
-const dateConverter = (date, months) => {
-  return date.setMonth(date.getMonth() + months);
 };
 
 const aptSelectListener = () => {
@@ -180,6 +178,10 @@ const getLeaseEndDate = bedroom => {
   return d.toLocaleDateString();
 };
 
+const dateConverter = (date, months) => {
+  return date.setMonth(date.getMonth() + months);
+};
+
 const bedroomFilter = bedroom => {
   date = new Date(bedroom.lease_start);
   return (
@@ -213,7 +215,7 @@ const makeGreenApartments = () => {
 
 // show a detail view
 
-function brDetailViewListener() {
+const brDetailViewListener = () => {
   for (let i = 1; i < 6; i++) {
     brBoxSelector(i).addEventListener("click", event => {
       displayDetailBrView(brBoxSelector(i).dataset.id);
@@ -222,20 +224,20 @@ function brDetailViewListener() {
       displayDetailBrView(brBoxSelector(i).dataset.id);
     });
   }
-}
+};
 
-function getBrImgUrl(bedroomId) {
+const getBrImgUrl = bedroomId => {
   let bedroomArr = aptStore.bedrooms.filter(bedroom => bedroom.id == bedroomId);
   let roomType = bedroomArr[0].roomType;
   return svgStore[`${roomType}`];
-}
+};
 
-function getBrName(bedroomId) {
+const getBrName = bedroomId => {
   let bedroomArr = aptStore.bedrooms.filter(bedroom => bedroom.id == bedroomId);
   return bedroomArr[0].name;
-}
+};
 
-function displayDetailBrView(bedroomId) {
+const displayDetailBrView = bedroomId => {
   const imgUrl = getBrImgUrl(bedroomId);
   const brName = getBrName(bedroomId);
   brDetailView().innerHTML = `
@@ -243,7 +245,7 @@ function displayDetailBrView(bedroomId) {
   ${imgUrl}
   <text x="5" y="290" font-family="Verdana" font-size="25" fill="black">${brName}</text>
   </svg>`;
-}
+};
 
 // Initialize
 
@@ -258,5 +260,4 @@ const addListeners = () => {
 document.addEventListener("DOMContentLoaded", () => {
   displayBedrooms(aptStore.currentApt);
   addListeners();
-  
 });
