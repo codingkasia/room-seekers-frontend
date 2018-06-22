@@ -7,14 +7,7 @@ const aptStore = {
     price: 3000,
     startDate: new Date()
   },
-  currentApt: 1,
-  roomTypes: {
-    a: "https://i.imgur.com/BNk5Tva.png",
-    b: "https://i.imgur.com/BNk5Tva.png",
-    c: "https://i.imgur.com/BNk5Tva.png",
-    d: "https://i.imgur.com/BNk5Tva.png",
-    e: "https://i.imgur.com/BNk5Tva.png"
-  }
+  currentApt: 1
 };
 
 const apartmentsURL = "http://localhost:3000/api/v1/apartments";
@@ -55,7 +48,6 @@ const buildBedrooms = res => {
 };
 
 // Selectors
-
 const aptContainer = () => {
   return document.querySelector(".grid-container");
 };
@@ -84,6 +76,14 @@ const filterButton = () => {
   return document.querySelector("input");
 };
 
+const priceFilter = () => {
+  return document.querySelector(".price");
+};
+
+const moveDateFilter = () => {
+  return document.querySelector(".moveDate");
+};
+
 const aptDivSelector = () => {
   return document.querySelector(".apartment-buttons");
 };
@@ -93,7 +93,7 @@ const svgSelector = () => {
 };
 
 const brDetailView = () => {
-  return document.querySelector(".br-show-container");
+  return document.querySelector(".br-show");
 };
 
 // Listeners
@@ -101,12 +101,21 @@ const brDetailView = () => {
 const filterButtonListener = () => {
   filterButton().addEventListener("click", e => {
     e.preventDefault();
-    const price = priceSelectValue();
-    const months = monthSelectValue();
-    aptStore.filters.price = price;
-    let date = new Date();
-    aptStore.filters.startDate = dateConverter(date, months);
-    displayBedrooms(aptStore.currentApt);
+    filterApartments();
+  });
+};
+
+const priceSelectListener = () => {
+  priceFilter().addEventListener("change", () => {
+    console.log("price listener");
+    filterApartments();
+  });
+};
+
+const moveDateSelectListener = () => {
+  moveDateFilter().addEventListener("change", () => {
+    console.log("move date listener");
+    filterApartments();
   });
 };
 
@@ -124,6 +133,15 @@ const aptSelectListener = () => {
 
 // App
 
+const filterApartments = () => {
+  const price = priceSelectValue();
+  const months = monthSelectValue();
+  aptStore.filters.price = price;
+  let date = new Date();
+  aptStore.filters.startDate = dateConverter(date, months);
+  displayBedrooms(aptStore.currentApt);
+};
+
 const displayBedrooms = num => {
   let counter = 1;
   fetchApartments()
@@ -135,11 +153,12 @@ const displayBedrooms = num => {
         const fontSize = brTextSelector(counter).getAttribute("font-size");
 
         brTextSelector(counter).innerHTML = `
-          <tspan x="${textX}" y="${textY}"> ${bedroom.name} </tspan>
-          <tspan x="${textX}" y="${parseInt(textY) + 75}"> $${
+          <tspan x="${textX}" y="${textY}">${bedroom.name} </tspan>
+          <tspan x="${textX}" y="${parseInt(textY) + 40}"> $${
           bedroom.price
         }/mo. </tspan>
-          <tspan x="${textX}" y="${parseInt(textY) + 150}"> ${getLeaseEndDate(
+        <tspan x="${textX}" y="${parseInt(textY) + 80}">Available:</tspan>
+          <tspan x="${textX}" y="${parseInt(textY) + 120}"> ${getLeaseEndDate(
           bedroom
         )} </tspan> `;
         bedroomFilter(bedroom)
@@ -155,20 +174,16 @@ const displayBedrooms = num => {
 
 const getLeaseEndDate = bedroom => {
   let date = new Date(bedroom.lease_start);
-
   date = date.setMonth(date.getMonth() + bedroom.term);
-  // let day = date.getDay();
-  // let month = date.getMonth();
-  // let year = date.getFullYear()
-  // return `${year}-${month}-${day}`
-  var d = new Date(date);
+  let d = new Date(date);
+  d.setDate(d.getDate() + 1);
   return d.toLocaleDateString();
 };
 
 const bedroomFilter = bedroom => {
   date = new Date(bedroom.lease_start);
   return (
-    bedroom.price < aptStore.filters.price &&
+    bedroom.price <= aptStore.filters.price &&
     dateConverter(date, bedroom.term) < aptStore.filters.startDate
   );
 };
@@ -195,16 +210,6 @@ const makeGreenApartments = () => {
     }
   }
 };
-//   // aptStore.apartments.forEach(apartment => {
-//   //   console.log(apartment);
-//   //   if (apartmentFilter(apartment)) {
-//   //     aptBoxSelector(counter).style.backgroundColor = "green";
-//   //   } else {
-//   //     aptBoxSelector(counter).style.backgroundColor = "white";
-//   //   }
-//   //   counter++;
-//   // });
-// };
 
 // show a detail view
 
@@ -234,7 +239,7 @@ function displayDetailBrView(bedroomId) {
   const imgUrl = getBrImgUrl(bedroomId);
   const brName = getBrName(bedroomId);
   brDetailView().innerHTML = `
-  <svg viewBox="0 0 400 800">
+  <svg viewBox="0 0 300 600">
   ${imgUrl}
   <text x="5" y="290" font-family="Verdana" font-size="25" fill="black">${brName}</text>
   </svg>`;
@@ -242,9 +247,16 @@ function displayDetailBrView(bedroomId) {
 
 // Initialize
 
-document.addEventListener("DOMContentLoaded", () => {
-  displayBedrooms(aptStore.currentApt);
-  filterButtonListener();
+const addListeners = () => {
+  // filterButtonListener();
   aptSelectListener();
   brDetailViewListener();
+  priceSelectListener();
+  moveDateSelectListener();
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  displayBedrooms(aptStore.currentApt);
+  addListeners();
+  
 });

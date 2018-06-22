@@ -1,80 +1,61 @@
+.navbar-brand {
+  margin-left: 40px;
+  font-size: 30px;
+  margin-top: -20px;
+  margin-bottom: -15px;
+}
+
+.apartment-filters-container {
+  float: left;
+}
+
+.apartment-buttons {
+  padding-left: 20px;
+  padding-top: 25px;
+  padding-bottom: 5px;
+  font-size: 20px;
+  margin-left: 40px;
+}
+
+.filters {
+  margin-left: 40px;
+  max-width: 300px;
+  padding-top: 40px;
+}
+
 .filters {
   padding-left: 20px;
   padding-top: 15px;
   padding-bottom: 0px;
 }
 
-.apt-show-container {
-  width: 30%;
-  /* border: 1px solid black; */
-  overflow: hidden;
-  height: 100%;
-  padding-top: 0px;
-}
-
-.svg-play {
-  width: 45%;
-  max-height: 450px;
-  float: left;
-  padding-top: 0px;
-}
-
-.svg-box {
-  max-height: 450px;
-  align-content: left;
-  padding-left: 20px;
-}
-
-.br-show-container {
-  width: 45%;
-  max-height: 500px;
+.show-container {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  margin-top: -10px;
+  /* max-height: 300px; */
   /* border-style: dashed; */
-  /* border-width: 2px; */
-  margin-top: 20px;
-  overflow: hidden;
-  /* color: cyan; */
-  padding-top: 0px;
+  border-width: 1px;
+  border-color: black;
 }
 
-.apartment-buttons {
-  padding-left: 20px;
-  padding-top: 15px;
-  padding-bottom: 5px;
-  font-size: 20px;
+.apt-show {
+  /* max-height: 500px; */
+  padding-left: 100px;
+  /* border-style: dashed; */
+  border-width: 1px;
+  border-color: blue;
+}
+
+.br-show {
+  /* max-height: 500px; */
+  padding-top: 100px;
+  /* float: left; */
+  /* border-style: dashed; */
+  border-width: 1px;
+  border-color: red;
 }
 
 .brBox {
   cursor: pointer;
 }
-
-/* .grid-container-br {
-  display: grid;
-  grid-template-columns: auto auto auto auto auto;
-  background-color: #ffffff;
-  padding: 1px;
-}
-.grid-container-apt {
-  display: grid;
-  grid-template-columns: 40px 40px 40px 40px 40px;
-  background-color: #ffffff;
-  padding-left: 20px;
-  padding-top: 25px;
-}
-
-.grid-br {
-  border: 1px solid rgba(0, 0, 0, 0.8);
-  padding: 0px;
-  font-size: 30px;
-  text-align: left;
-  width: 200px;
-  height: 200px;
-}
-
-.grid-apt {
-  border: 1px solid rgba(0, 0, 0, 0.8);
-  padding: 0px;
-  font-size: 30px;
-  text-align: center;
-  width: 30px;
-  height: 30px;
-} */

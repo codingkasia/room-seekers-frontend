@@ -1,6 +1,6 @@
 const svgStore = {
   a: `<!-- bedroom -->
-        <rect class="br1" x="5" y="5" width="175" height="250" stroke="black" fill="transparent" stroke-width="4" />
+        <rect class="br1" x="5" y="5" width="175" height="250" stroke="black" fill="transparent" stroke-width="3" />
         <!-- bed -->
         <rect x="10" y="10" width="75" height="100" stroke="black" fill="transparent" stroke-width="2" />
         <rect x="15" y="15" width="30" height="15" stroke="black" fill="transparent" stroke-width="2" />
@@ -24,7 +24,7 @@ const svgStore = {
         <line x1="15" x2="50" y1="255" y2="235" stroke="black" stroke-width="2.25" />
         <path d="M50 235 Q 60 240 55 255" stroke="black" fill="transparent" stroke-width="1.5" />`,
   b: `<!-- bedroom -->
-      <rect class="br1" x="5" y="5" width="175" height="250" stroke="black" fill="transparent" stroke-width="4" />
+      <rect class="br1" x="5" y="5" width="175" height="250" stroke="black" fill="transparent" stroke-width="3" />
       <!-- bed -->
       <rect x="100" y="10" width="75" height="100" stroke="black" fill="transparent" stroke-width="2" />
       <rect x="105" y="15" width="30" height="15" stroke="black" fill="transparent" stroke-width="2" />
@@ -48,7 +48,7 @@ const svgStore = {
       <line x1="170" x2="130" y1="255" y2="235" stroke="black" stroke-width="2.25" />
       <path d="M130 235 Q 120 240 125 255" stroke="black" fill="transparent" stroke-width="1.5" />`,
   c: `<!-- bedroom -->
-      <rect class="br1" x="5" y="5" width="175" height="250" stroke="black" fill="transparent" stroke-width="4" />
+      <rect class="br1" x="5" y="5" width="175" height="250" stroke="black" fill="transparent" stroke-width="3" />
       <!-- bed -->
       <rect x="100" y="10" width="75" height="100" stroke="black" fill="transparent" stroke-width="2" />
       <rect x="105" y="15" width="30" height="15" stroke="black" fill="transparent" stroke-width="2" />
@@ -72,7 +72,7 @@ const svgStore = {
       <line x1="15" x2="50" y1="255" y2="235" stroke="black" stroke-width="2.25" />
       <path d="M50 235 Q 60 240 55 255" stroke="black" fill="transparent" stroke-width="1.5" />`,
   d: `<!-- bedroom -->
-      <polygon points="5 5, 140 5, 140 120, 180 120, 180 255, 5 255" stroke="black" fill="transparent" stroke-width="4" />
+      <polygon points="5 5, 140 5, 140 120, 180 120, 180 255, 5 255" stroke="black" fill="transparent" stroke-width="3" />
       <!-- bed -->
       <rect x="10" y="150" width="75" height="100" stroke="black" fill="transparent" stroke-width="2" />
       <rect x="15" y="230" width="30" height="15" stroke="black" fill="transparent" stroke-width="2" />
@@ -94,7 +94,7 @@ const svgStore = {
       <rect x="5" y="75" width="100" height="30" stroke="black" fill="transparent" stroke-width="2" />
       <line x1="5" y1="90" x2="105" y2="90" stroke="black" stroke-width="1" stroke-dasharray="4" />`,
   e: `<!-- bedroom -->
-      <polygon points="45 5, 180 5, 180 120, 180 255, 5 255, 5 120, 45, 120" stroke="black" fill="transparent" stroke-width="4"
+      <polygon points="45 5, 180 5, 180 120, 180 255, 5 255, 5 120, 45, 120" stroke="black" fill="transparent" stroke-width="3"
       />
       <!-- bed -->
       <rect x="100" y="150" width="75" height="100" stroke="black" fill="transparent" stroke-width="2" />
