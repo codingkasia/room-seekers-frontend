@@ -53,7 +53,7 @@ const aptContainer = () => {
 };
 
 const brBoxSelector = num => {
-  return document.querySelector(`rect.br${num}`);
+  return document.querySelector(`.rect-br${num}`);
 };
 
 const brTextSelector = num => {
