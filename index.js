@@ -11,8 +11,11 @@ const aptStore = {
 };
 
 // Fetch & Build Apartment Data
-
-const apartmentsURL = "http://localhost:3000/api/v1/apartments";
+const apartmentsURL =
+  process.env["NODE_ENV"] === "development"
+    ? "http://localhost:3000/api/v1/apartments"
+    : "https://room-seekers.herokuapp.com/";
+// const apartmentsURL = "http://localhost:3000/api/v1/apartments";
 
 const getApartmentsData = () => {
   return fetch(apartmentsURL).then(res => res.json());
