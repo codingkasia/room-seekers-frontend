@@ -1,5 +1,5 @@
 // store
-// export NODE_ENV = development;
+
 const aptStore = {
   apartments: [],
   bedrooms: [],
@@ -12,20 +12,20 @@ const aptStore = {
 
 // Fetch & Build Apartment Data
 const apartmentsURL =
-  process.env["NODE_ENV"] === "development"
-    ? "http://localhost:3000/api/v1/apartments"
-    : "https://room-seekers.herokuapp.com//api/v1/apartments";
+  process.env['NODE_ENV'] === 'development'
+    ? 'http://localhost:3000/api/v1/apartments'
+    : 'https://room-seekers.herokuapp.com/api/v1/apartments';
 // const apartmentsURL = "http://localhost:3000/api/v1/apartments";
 
 const getApartmentsData = () => {
   return fetch(apartmentsURL).then(res => res.json())
-};
+}
 
 const fetchApartments = () => {
   return getApartmentsData()
     .then(buildApartments)
     .then(buildBedrooms)
-};
+}
 
 const buildApartments = res => {
   res.data.forEach(apt => {
@@ -35,7 +35,7 @@ const buildApartments = res => {
     )
   })
   return res
-};
+}
 
 const buildBedrooms = res => {
   res.included.forEach(br => {
@@ -50,56 +50,56 @@ const buildBedrooms = res => {
     )
   })
   return res
-};
+}
 
 // Selectors
 const aptContainer = () => {
   return document.querySelector('.grid-container')
-};
+}
 
 const brBoxSelector = num => {
   return document.querySelector(`.rect-br${num}`)
-};
+}
 
 const brTextSelector = num => {
   return document.querySelector(`text.br${num}`)
-};
+}
 
 const aptBoxSelector = num => {
   return document.querySelector(`.apt${num}`)
-};
+}
 
 const priceSelectValue = () => {
   return document.querySelector('.price').value
-};
+}
 
 const monthSelectValue = () => {
   return parseInt(document.querySelector('.moveDate').value)
-};
+}
 
 const filterButton = () => {
   return document.querySelector('input')
-};
+}
 
 const priceFilter = () => {
   return document.querySelector('.price')
-};
+}
 
 const moveDateFilter = () => {
   return document.querySelector('.moveDate')
-};
+}
 
 const aptDivSelector = () => {
   return document.querySelector('.apartment-buttons')
-};
+}
 
 const svgSelector = () => {
   return document.querySelector('.svg-play')
-};
+}
 
 const brDetailView = () => {
   return document.querySelector('.br-show')
-};
+}
 
 // Listeners
 
@@ -115,14 +115,14 @@ const priceSelectListener = () => {
     console.log('price listener')
     filterApartments()
   })
-};
+}
 
 const moveDateSelectListener = () => {
   moveDateFilter().addEventListener('change', () => {
     console.log('move date listener')
     filterApartments()
   })
-};
+}
 
 const aptSelectListener = () => {
   aptDivSelector().addEventListener('click', e => {
@@ -130,7 +130,7 @@ const aptSelectListener = () => {
     displayBedrooms(apartment)
     aptStore.currentApt = apartment
   })
-};
+}
 
 // App
 
@@ -141,7 +141,7 @@ const filterApartments = () => {
   let date = new Date()
   aptStore.filters.startDate = dateConverter(date, months)
   displayBedrooms(aptStore.currentApt)
-};
+}
 
 const displayBedrooms = num => {
   let counter = 1
@@ -171,7 +171,7 @@ const displayBedrooms = num => {
       })
     })
     .then(makeGreenApartments)
-};
+}
 
 const getLeaseEndDate = bedroom => {
   let date = new Date(bedroom.lease_start)
@@ -179,11 +179,11 @@ const getLeaseEndDate = bedroom => {
   let d = new Date(date)
   d.setDate(d.getDate() + 1)
   return d.toLocaleDateString()
-};
+}
 
 const dateConverter = (date, months) => {
   return date.setMonth(date.getMonth() + months)
-};
+}
 
 const bedroomFilter = bedroom => {
   date = new Date(bedroom.lease_start)
@@ -191,7 +191,7 @@ const bedroomFilter = bedroom => {
     bedroom.price <= aptStore.filters.price &&
     dateConverter(date, bedroom.term) < aptStore.filters.startDate
   )
-};
+}
 
 const apartmentFilter = apartment => {
   let filtered = false
@@ -201,7 +201,7 @@ const apartmentFilter = apartment => {
     }
   })
   return filtered
-};
+}
 
 const makeGreenApartments = () => {
   for (let i = 1; i < 5; i++) {
@@ -233,12 +233,12 @@ const getBrImgUrl = bedroomId => {
   let bedroomArr = aptStore.bedrooms.filter(bedroom => bedroom.id == bedroomId)
   let roomType = bedroomArr[0].roomType
   return svgStore[`${roomType}`]
-};
+}
 
 const getBrName = bedroomId => {
   let bedroomArr = aptStore.bedrooms.filter(bedroom => bedroom.id == bedroomId)
   return bedroomArr[0].name
-};
+}
 
 const displayDetailBrView = bedroomId => {
   const imgUrl = getBrImgUrl(bedroomId)
@@ -248,7 +248,7 @@ const displayDetailBrView = bedroomId => {
   ${imgUrl}
   <text x="5" y="290" font-family="Verdana" font-size="25" fill="black">${brName}</text>
   </svg>`
-};
+}
 
 // Initialize
 
@@ -258,7 +258,7 @@ const addListeners = () => {
   brDetailViewListener()
   priceSelectListener()
   moveDateSelectListener()
-};
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   displayBedrooms(aptStore.currentApt)
