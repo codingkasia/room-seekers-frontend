@@ -11,10 +11,7 @@ const aptStore = {
 }
 
 // Fetch & Build Apartment Data
-const apartmentsURL =
-  process.env['NODE_ENV'] === 'development'
-    ? 'http://localhost:3000/api/v1/apartments'
-    : 'https://room-seekers.herokuapp.com/api/v1/apartments';
+const apartmentsURL = 'https://room-seekers.herokuapp.com/api/v1/apartments';
 // const apartmentsURL = "http://localhost:3000/api/v1/apartments";
 
 const getApartmentsData = () => {
@@ -260,7 +257,7 @@ const addListeners = () => {
   moveDateSelectListener()
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  displayBedrooms(aptStore.currentApt)
-  addListeners()
-})
+document.addEventListener("DOMContentLoaded", () => {
+  displayBedrooms(aptStore.currentApt);
+  addListeners();
+});
